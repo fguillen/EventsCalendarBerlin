@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema.define(version: 2018_08_05_131933) do
 
-  create_table "calendar_events", force: :cascade do |t|
-    t.integer "venue_id", null: false
+  create_table "calendar_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "venue_id", null: false
     t.string "title", null: false
     t.datetime "date_time", null: false
     t.string "checksum", null: false
@@ -24,13 +24,15 @@ ActiveRecord::Schema.define(version: 2018_08_05_131933) do
     t.integer "duration_minutes"
     t.decimal "price_euros", precision: 8, scale: 2
     t.text "tags"
+    t.index ["checksum"], name: "index_calendar_events_on_checksum", unique: true
     t.index ["venue_id"], name: "index_calendar_events_on_venue_id"
   end
 
-  create_table "venues", force: :cascade do |t|
+  create_table "venues", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "calendar_url", null: false
     t.string "scraper_module_name", null: false
   end
 
+  add_foreign_key "calendar_events", "venues"
 end

@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.1'
 
 gem 'rails', '~> 5.2.0'
-gem 'sqlite3'
+gem 'mysql2'
 gem 'puma', '~> 3.11'
 
 gem "web_to_calendar_api", :path => "/Users/fguillen/Development/WebToCalendarApi"
