@@ -7,7 +7,7 @@ gem 'rails', '~> 5.2.0'
 gem 'sqlite3'
 gem 'puma', '~> 3.11'
 
-gem "web_to_calendar_api", :path => "/Users/fguillen/Development/Temp/WebToCalendarApi"
+gem "web_to_calendar_api", :path => "/Users/fguillen/Development/WebToCalendarApi"
 
 group :development, :test do
 end

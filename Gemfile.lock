@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/fguillen/Development/Temp/WebToCalendarApi
+  remote: /Users/fguillen/Development/WebToCalendarApi
   specs:
     web_to_calendar_api (0.1.0)
       httparty (= 0.16.2)

@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Venue.create!(
+  :name => "dock11",
+  :scraper_module_name => "Dock11",
+  :calendar_url => "http://example.com"
+)

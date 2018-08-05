@@ -22,13 +22,15 @@ ActiveRecord::Schema.define(version: 2018_08_05_131933) do
     t.text "pics"
     t.string "address"
     t.integer "duration_minutes"
-    t.decimal "price_euros"
+    t.decimal "price_euros", precision: 8, scale: 2
     t.text "tags"
     t.index ["venue_id"], name: "index_calendar_events_on_venue_id"
   end
 
   create_table "venues", force: :cascade do |t|
     t.string "name", null: false
+    t.string "calendar_url", null: false
+    t.string "scraper_module_name", null: false
   end
 
 end
