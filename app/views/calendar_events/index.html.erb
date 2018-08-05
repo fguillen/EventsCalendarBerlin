@@ -7,7 +7,9 @@
   <div class="card-columns">
     <% calendar_events.each do |calendar_event| %>
       <div class="card">
-        <img class="card-img-top" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
+        <% if !calendar_event.pics.empty? %>
+          <img class="card-img-top" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
+        <% end %>
         <div class="card-body">
           <h5 class="card-title"><%= calendar_event.title %></h5>
           <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
