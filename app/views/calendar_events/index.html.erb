@@ -9,7 +9,7 @@
 
   <div class="card date bg-primary text-white text-center p-3" data-date="<%= date %>" onclick="select_date(this)">
     <blockquote class="blockquote mb-0">
-      <h1><%= date %></h1>
+      <h1><%= date.to_s(:datehuman_long) %></h1>
     </blockquote>
   </div>
 
@@ -18,14 +18,22 @@
       <% if !calendar_event.pics.empty? %>
         <img class="card-img-top" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
       <% end %>
+      <div class="card-img-overlay">
+        <div class="row">
+          <div class="col-sm">
+            <p>
+              <%= render_label(calendar_event.venue.name, :tags) %>
+              <%= render_labels(calendar_event.tags, :tags) %>
+            </p>
+          </div>
+          <div class="col-sm text-right">
+            <h3><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:hour) %></span></h3>
+          </div>
+        </div>
+      </div>
       <div class="card-body">
-        <p class="card-text"><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:datehuman_long) %></span></p>
         <h5 class="card-title"><%= calendar_event.title %></h5>
         <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
-        <p class="card-text">
-          <%= render_label(calendar_event.venue.name, :tags) %>
-          <%= render_labels(calendar_event.tags, :tags) %>
-        </p>
       </div>
       <div class="card-body">
         <a href="#" class="card-link">Card link</a>
