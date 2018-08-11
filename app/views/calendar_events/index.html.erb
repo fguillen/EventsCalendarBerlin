@@ -19,13 +19,11 @@
         <img class="card-img-top" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
       <% end %>
       <div class="card-body">
+        <p class="card-text"><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:datehuman_long) %></span></p>
         <h5 class="card-title"><%= calendar_event.title %></h5>
         <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
+        <p class="card-text"><span class="badge badge-secondary"><%= calendar_event.venue.name %></span></p>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= calendar_event.date_time %></li>
-        <li class="list-group-item"><%= calendar_event.venue.name %></li>
-      </ul>
       <div class="card-body">
         <a href="#" class="card-link">Card link</a>
         <a href="<%= calendar_event.url %>" class="card-link">Info</a>
