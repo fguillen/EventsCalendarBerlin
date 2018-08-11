@@ -1,11 +1,11 @@
-<div class="card event" data-date="<%= calendar_event.date_time.to_s(:datedb) %>" data-event-id="<%= calendar_event.id %>">
+<div class="card event" data-date="<%= calendar_event.date_time.to_s(:datedb) %>" data-venue="<%= calendar_event.venue.name %>" data-event-id="<%= calendar_event.id %>">
   <% if !calendar_event.pics.empty? %>
     <img class="card-img" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
 
     <div class="card-img-overlay" style="z-index: 1">
       <div class="row">
         <div class="col">
-          <h2><%= render_label(calendar_event.venue.name, :tags) %></h2>
+          <h2 class="card-venue" onclick="select_venue('<%= calendar_event.venue.name %>')"><%= render_label(calendar_event.venue.name, :tags) %></h2>
           <p>
             <%= render_labels(calendar_event.tags, :tags) %>
           </p>
@@ -22,7 +22,7 @@
     <% if calendar_event.pics.empty? %>
       <div class="row">
         <div class="col">
-          <h2><%= render_label(calendar_event.venue.name, :tags) %></h2>
+          <h2 class="card-venue" onclick="select_venue('<%= calendar_event.venue.name %>')"><%= render_label(calendar_event.venue.name, :tags) %></h2>
           <p>
             <%= render_labels(calendar_event.tags, :tags) %>
           </p>

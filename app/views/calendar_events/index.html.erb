@@ -4,7 +4,7 @@
 <div class="bricklayer">
   <% @calendar_events_by_date.each do |date, calendar_events| %>
 
-    <div class="card date bg-primary text-white text-center p-3" data-date="<%= date.to_s(:datedb) %>" onclick="select_date(this)">
+    <div class="card date bg-primary text-white text-center p-3" data-date="<%= date.to_s(:datedb) %>" onclick="select_date('<%= date.to_s(:datedb) %>')">
       <blockquote class="blockquote mb-0">
         <h1><%= date.to_s(:datehuman_long) %></h1>
       </blockquote>
@@ -20,20 +20,60 @@
 
 <script>
   var bricklayer = new Bricklayer(document.querySelector('.bricklayer'))
+  var date_selected = null;
+  var venue_selected = null;
 
-  function select_date(element){
-    var date = $(element).attr("data-date");
-    var is_already_active = $(element).hasClass("selected");
+  function select_date(date){
+    console.log("select_date", date);
 
-    console.log("is_already_active", is_already_active);
-    console.log("date", date);
+    var is_already_selected = (date_selected == date);
 
-    $(".card.event").removeClass("bg-light disabled");
+    if(is_already_selected) {
+      date_selected = null;
+    } else {
+      date_selected = date;
+    }
+
+    render_selected();
+  }
+
+  function select_venue(venue){
+    console.log("select_venue", venue);
+
+    var is_already_selected = (venue_selected == venue);
+
+    if(is_already_selected) {
+      venue_selected = null;
+    } else {
+      venue_selected = venue;
+    }
+
+    render_selected();
+  }
+
+  function render_selected(){
+    $(".card.event").removeClass("disabled");
     $(".card").removeClass("bg-warning selected");
+    $(".card .card-venue").removeClass("selected");
 
-    if(!is_already_active) {
-      $(".card.event[data-date!='" + date + "']").addClass("bg-light disabled");
-      $(".card[data-date='" + date + "']").addClass("bg-warning selected");
+    var selector = "";
+
+    if(date_selected) {
+      selector += "[data-date='" + date_selected + "']"
+      $(".card.date" + selector).addClass("bg-warning selected");
+      $(".card.event[data-date!='" + date_selected + "']").addClass("disabled");
+    }
+
+    if(venue_selected) {
+      selector += "[data-venue='" + venue_selected + "']"
+      $(".card.event[data-venue!='" + venue_selected + "']").addClass("disabled");
+      $(".card" + selector + " .card-venue").addClass("selected");
+    }
+
+    console.log("render_selected", selector);
+
+    if(selector.length > 0) {
+      $(".card.event" + selector).addClass("bg-warning selected");
     }
   }
 </script>
@@ -43,7 +83,16 @@
     margin-bottom: 5px;
   }
 
+  .card.date,
+  .card .card-venue {
+    cursor: pointer;
+  }
+
   .card.disabled {
     filter: blur(8px) grayscale(50%) opacity(.5);
+  }
+
+  .card .card-venue.selected span{
+    background-color: orange !important;
   }
 </style>
