@@ -1,93 +1,65 @@
 <h1>CalendarEvents#index</h1>
 <p>Find me in app/views/calendar_events/index.html.erb</p>
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bricklayer/0.4.3/bricklayer.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/bricklayer/0.4.3/bricklayer.min.js"></script>
 
+<div class="bricklayer">
 <% @calendar_events_by_date.each do |date, calendar_events| %>
-  <h1><%= date %></h1>
-  <div class="card-columns">
-    <% calendar_events.each do |calendar_event| %>
-      <div class="card">
-        <% if !calendar_event.pics.empty? %>
-          <img class="card-img-top" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
-        <% end %>
-        <div class="card-body">
-          <h5 class="card-title"><%= calendar_event.title %></h5>
-          <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><%= calendar_event.date_time %></li>
-          <li class="list-group-item"><%= calendar_event.venue.name %></li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="<%= calendar_event.url %>" class="card-link">Info</a>
-        </div>
-      </div>
-    <% end %>
+
+  <div class="card date bg-primary text-white text-center p-3" data-date="<%= date %>" onclick="select_date(this)">
+    <blockquote class="blockquote mb-0">
+      <h1><%= date %></h1>
+    </blockquote>
   </div>
+
+  <% calendar_events.each do |calendar_event| %>
+    <div class="card event" data-date="<%= date %>">
+      <% if !calendar_event.pics.empty? %>
+        <img class="card-img-top" src="<%= calendar_event.pics.first %>" alt="<%= calendar_event.title %>">
+      <% end %>
+      <div class="card-body">
+        <h5 class="card-title"><%= calendar_event.title %></h5>
+        <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= calendar_event.date_time %></li>
+        <li class="list-group-item"><%= calendar_event.venue.name %></li>
+      </ul>
+      <div class="card-body">
+        <a href="#" class="card-link">Card link</a>
+        <a href="<%= calendar_event.url %>" class="card-link">Info</a>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
-<div class="card-columns">
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title that wraps to a new line</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    </div>
-  </div>
-  <div class="card p-3">
-    <blockquote class="blockquote mb-0 card-body">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">
-        <small class="text-muted">
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card bg-primary text-white text-center p-3">
-    <blockquote class="blockquote mb-0">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat.</p>
-      <footer class="blockquote-footer">
-        <small>
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img" src="..." alt="Card image">
-  </div>
-  <div class="card p-3 text-right">
-    <blockquote class="blockquote mb-0">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">
-        <small class="text-muted">
-          Someone famous in <cite title="Source Title">Source Title</cite>
-        </small>
-      </footer>
-    </blockquote>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-</div>
+<script>
+  var bricklayer = new Bricklayer(document.querySelector('.bricklayer'))
+
+  function select_date(element){
+    var date = $(element).attr("data-date");
+    var is_already_active = $(element).hasClass("selected");
+
+    console.log("is_already_active", is_already_active);
+    console.log("date", date);
+
+    $(".card.event").removeClass("bg-light disabled");
+    $(".card").removeClass("bg-warning selected");
+
+    if(!is_already_active) {
+      $(".card.event[data-date!='" + date + "']").addClass("bg-light disabled");
+      $(".card[data-date='" + date + "']").addClass("bg-warning selected");
+    }
+  }
+</script>
+
+<style>
+  .card {
+    margin-bottom: 5px;
+  }
+
+  .card.disabled {
+    filter: blur(8px) grayscale(50%) opacity(.5);
+  }
+</style>
