@@ -22,7 +22,10 @@
         <p class="card-text"><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:datehuman_long) %></span></p>
         <h5 class="card-title"><%= calendar_event.title %></h5>
         <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
-        <p class="card-text"><span class="badge badge-secondary"><%= calendar_event.venue.name %></span></p>
+        <p class="card-text">
+          <%= render_label(calendar_event.venue.name, :tags) %>
+          <%= render_labels(calendar_event.tags, :tags) %>
+        </p>
       </div>
       <div class="card-body">
         <a href="#" class="card-link">Card link</a>
