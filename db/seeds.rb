@@ -17,3 +17,9 @@ Venue.create!(
   :scraper_module_name => "VillaKuriosum",
   :calendar_url => "http://example.com"
 )
+
+Venue.create!(
+  :name => "HAU",
+  :scraper_module_name => "HAU",
+  :calendar_url => "http://example.com"
+)
