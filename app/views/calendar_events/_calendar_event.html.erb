@@ -5,12 +5,12 @@
     <div class="card-img-overlay" style="z-index: 1">
       <div class="row">
         <div class="col">
-          <h2 class="card-venue" onclick="select_venue('<%= calendar_event.venue.name %>')"><%= render_label(calendar_event.venue.name, :tags) %></h2>
+          <h3 class="card-venue" onclick="select_venue('<%= calendar_event.venue.name %>')"><%= render_label(calendar_event.venue.name, :tags) %></h3>
           <p>
             <%= render_labels(calendar_event.tags, :tags) %>
           </p>
         </div>
-        <div class="col text-right">
+        <div class="col text-right date-time">
           <h6><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:datehuman) %></span></h6>
           <h3><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:hour) %></span></h3>
         </div>
@@ -22,12 +22,12 @@
     <% if calendar_event.pics.empty? %>
       <div class="row">
         <div class="col">
-          <h2 class="card-venue" onclick="select_venue('<%= calendar_event.venue.name %>')"><%= render_label(calendar_event.venue.name, :tags) %></h2>
+          <h3 class="card-venue" onclick="select_venue('<%= calendar_event.venue.name %>')"><%= render_label(calendar_event.venue.name, :tags) %></h3>
           <p>
             <%= render_labels(calendar_event.tags, :tags) %>
           </p>
         </div>
-        <div class="col text-right">
+        <div class="col text-right date-time">
           <h6><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:datehuman) %></span></h6>
           <h3><span class="badge badge-primary"><%= calendar_event.date_time.to_s(:hour) %></span></h3>
         </div>
