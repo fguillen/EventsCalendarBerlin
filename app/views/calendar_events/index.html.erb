@@ -18,6 +18,40 @@
 
 
 
+
+<style>
+
+/*  body{
+    transform: scale(0.9);
+  }*/
+
+  .card {
+    margin-bottom: 5px;
+  }
+
+  .card.date,
+  .card .card-venue {
+    cursor: pointer;
+  }
+
+  .card.disabled {
+    filter: blur(8px) grayscale(50%) opacity(.5);
+  }
+
+  .card .card-venue.selected span{
+    background-color: orange !important;
+  }
+
+  @media screen and (min-width: 700px) {
+    .bricklayer-column-sizer {
+      width: 16.66%;
+    }
+  }
+
+</style>
+
+
+
 <script>
   var bricklayer = new Bricklayer(document.querySelector('.bricklayer'))
   var date_selected = null;
@@ -77,22 +111,3 @@
     }
   }
 </script>
-
-<style>
-  .card {
-    margin-bottom: 5px;
-  }
-
-  .card.date,
-  .card .card-venue {
-    cursor: pointer;
-  }
-
-  .card.disabled {
-    filter: blur(8px) grayscale(50%) opacity(.5);
-  }
-
-  .card .card-venue.selected span{
-    background-color: orange !important;
-  }
-</style>
