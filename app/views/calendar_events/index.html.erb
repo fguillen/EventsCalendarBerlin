@@ -1,19 +1,65 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bricklayer/0.4.3/bricklayer.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/bricklayer/0.4.3/bricklayer.min.js"></script>
 
-<div class="bricklayer">
-  <% @calendar_events_by_date.each do |date, calendar_events| %>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Events Calendar Berlin</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Venues
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <% @venue_names.each do |venue_name| %>
+            <a class="dropdown-item" href="#" data-venue="<%= venue_name %>" onclick="select_venue('<%= venue_name %>')"><%= venue_name %></a>
+          <% end %>
+        </div>
+      </li>
 
-    <div class="card date bg-primary text-white text-center p-3" data-date="<%= date.to_s(:datedb) %>" onclick="select_date('<%= date.to_s(:datedb) %>')">
-      <blockquote class="blockquote mb-0">
-        <h1><%= date.to_s(:datehuman_long) %></h1>
-      </blockquote>
-    </div>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dates
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <% @dates.each do |date| %>
+            <a class="dropdown-item" href="#" data-date="<%= date.to_s(:datedb) %>" onclick="select_date('<%= date %>')"><%= date.to_s(:datehuman_long) %></a>
+          <% end %>
+        </div>
+      </li>
 
-    <% calendar_events.each do |calendar_event| %>
-      <%= render calendar_event %>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Tags
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <% @tags.each do |tag| %>
+            <a class="dropdown-item" href="#" onclick="select_tag('<%= tag %>')"><%= tag %></a>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container-fluid">
+  <div class="bricklayer">
+    <% @calendar_events_by_date.each do |date, calendar_events| %>
+
+      <div class="card date bg-primary text-white text-center p-3" data-date="<%= date.to_s(:datedb) %>" onclick="select_date('<%= date.to_s(:datedb) %>')">
+        <blockquote class="blockquote mb-0">
+          <h1><%= date.to_s(:datehuman_long) %></h1>
+        </blockquote>
+      </div>
+
+      <% calendar_events.each do |calendar_event| %>
+        <%= render calendar_event %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
 
 
@@ -97,10 +143,20 @@
     render_selected();
   }
 
+
+  function select_tag(tag){
+    console.log("select_tag", tag);
+
+    alert("Not implemented yet");
+  }
+
+
   function render_selected(){
     $(".card.event").removeClass("disabled");
     $(".card").removeClass("bg-warning selected");
     $(".card .card-venue").removeClass("selected");
+
+    $(".navbar a").removeClass("active");
 
     var selector = "";
 
@@ -108,12 +164,16 @@
       selector += "[data-date='" + date_selected + "']"
       $(".card.date" + selector).addClass("bg-warning selected");
       $(".card.event[data-date!='" + date_selected + "']").addClass("disabled");
+
+      $(".navbar a[data-date='" + date_selected + "']").addClass("active");
     }
 
     if(venue_selected) {
       selector += "[data-venue='" + venue_selected + "']"
       $(".card.event[data-venue!='" + venue_selected + "']").addClass("disabled");
       $(".card" + selector + " .card-venue").addClass("selected");
+
+      $(".navbar a[data-venue='" + venue_selected + "']").addClass("active");
     }
 
     console.log("render_selected", selector);
