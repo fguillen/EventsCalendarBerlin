@@ -7,7 +7,7 @@ gem 'rails', '~> 5.2.0'
 gem 'mysql2'
 gem 'puma', '~> 3.11'
 
-gem "web_to_calendar_api", :path => "/Users/fguillen/Development/WebToCalendarApi"
+gem "web_to_calendar_api", :path => "/Users/fernando.guillen/Development/WebToCalendarApi"
 gem "style_palette"
 
 group :development, :test do

@@ -1,5 +1,5 @@
 PATH
-  remote: /Users/fguillen/Development/WebToCalendarApi
+  remote: /Users/fernando.guillen/Development/WebToCalendarApi
   specs:
     web_to_calendar_api (0.1.0)
       httparty (= 0.16.2)
@@ -140,4 +140,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.17.3

@@ -34,7 +34,7 @@
       </div>
     <% end %>
     <h5 class="card-title"><%= calendar_event.title %></h5>
-    <p class="card-text"><%= calendar_event.info.join.truncate(140) %></p>
+    <p class="card-text"><%= calendar_event.info ? calendar_event.info.join.truncate(140) : "-" %></p>
   </div>
 
   <div class="card-body" style="z-index: 10">

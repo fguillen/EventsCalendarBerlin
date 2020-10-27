@@ -1,13 +1,13 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: events_calendar_berlin_development
+  database: eventscalendarberlin_development
   username: root
   password:
 
 test:
   adapter: mysql2
   encoding: utf8
-  database: events_calendar_berlin_test
+  database: eventscalendarberlin_test
   username: root
   password:
